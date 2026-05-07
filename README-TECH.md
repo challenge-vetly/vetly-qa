@@ -11,12 +11,11 @@ ENTIDADE: Veterinário
 Atributos: CRMV, UF de atuação, especialidades, espécies atendidas, titulação acadêmica, dias e horários de atendimento, duração média por consulta, intervalo entre atendimentos, serviços oferecidos (tipo, valor, aceita plano de saúde pet), dados bancários (banco, agência, conta, CPF ou CNPJ do titular), chave Pix, plano de assinatura (Básico / Profissional / Enterprise), persona (autônomo ou vinculado)
 Relacionamentos:
 - Realiza Consulta (1:N) — conduz os atendimentos registrados na plataforma
-- Atende Animal (N:N via Consulta) — cada veterinário atende múltiplos animais; cada animal pode ser atendido por múltiplos veterinários
 - Solicita Exame (1:N) — registra solicitações de exame durante ou após a consulta
 - Abre Internação (1:N) — vincula ficha de internação ao animal
 - Assina Documento (1:N) — assina digitalmente a receita veterinária com certificado vinculado ao CRMV
 - Pertence a Empresa (N:1) — quando na modalidade veterinário vinculado
-- Recebe repasse via split (N:1) — processado automaticamente conforme regras do onboarding
+- Recebe Pagamento (1:N) — no caso de persona autônoma, cada atendimento gera um Pagamento vinculado ao veterinário para cálculo do repasse
 
 ---
 
@@ -25,7 +24,7 @@ Atributos: tipo (clínica, hospital veterinário, pet shop com serviços clínic
 Relacionamentos:
 - Tem Administrador (1:1) — usuário responsável pela gestão da unidade
 - Emprega Veterinário vinculado (1:N) — cada empresa pode ter múltiplos veterinários
-- Processa split com Plataforma (1:1) — percentual e prazo de liquidação configurados no onboarding
+- Origina Pagamento (1:N) — cada atendimento dos veterinários vinculados gera um Pagamento associado à empresa para cálculo do repasse
 
 ---
 
@@ -34,7 +33,7 @@ Atributos: acesso irrestrito a todas as informações da unidade
 Relacionamentos:
 - Gerencia Empresa (1:1) — representa a unidade na plataforma
 - Gerencia Veterinário vinculado (1:N) — cadastra, edita e desativa profissionais
-- Recebe alerta de agendamentos futuros de veterinário desativado (1:N) — para redistribuição ou cancelamento
+- Redistribui Consulta (1:N) — agendamentos futuros de veterinário desativado são sinalizados ao administrador para redistribuição ou cancelamento
 
 ---
 
@@ -76,16 +75,15 @@ Relacionamentos:
 - Pertence a Animal (N:1) — o prontuário é do animal, não do veterinário ou da clínica
 - Gerado por Consulta (N:1) — cada consulta gera um prontuário
 - Gerado por Internação (N:1) — o prontuário da internação é incorporado ao histórico do animal
-- Tem versão corrigida vinculada (1:0..1) — versão original e corrigida coexistem no histórico
+- Referencia Prontuário (1:0..1) — auto-relacionamento: a versão original mantém referência à versão corrigida; ambas coexistem no histórico do animal
 
 ---
 
 ENTIDADE: Exame
-Atributos: tipo de solicitação, resultado (inserido por upload do veterinário ou via laboratório parceiro), status de liberação ao tutor
+Atributos: tipo de solicitação, resultado (inserido via upload pelo veterinário ou via integração com laboratório parceiro externo), status de liberação ao tutor
 Relacionamentos:
 - Solicitado por Veterinário (N:1) — durante ou após a consulta
 - Vinculado a Animal (N:1) — resultado incorporado ao histórico longitudinal
-- Inserido por Laboratório parceiro (0:1) — quando há integração estabelecida
 
 ---
 
@@ -102,10 +100,10 @@ Relacionamentos:
 ENTIDADE: Documento
 Atributos: tipo (Prontuário, Atestado de saúde / óbito / transporte, Receita Veterinária, Nota Fiscal), versão (original ou corrigida), data e hora de geração, CRMV do profissional signatário (receita), assinatura digital vinculada ao CRMV (apenas receita)
 Relacionamentos:
-- Gerado em Consulta (N:1) ou Internação (N:1) — cada atendimento gera documentos associados
+- Gerado por Consulta (N:1) — documentos de atendimento ambulatorial
+- Gerado por Internação (N:1) — documentos de internação
 - Assinado por Veterinário (N:1) — obrigatório apenas para receita veterinária
-- Recebido por Tutor via WhatsApp (N:N) — receita, atestado quando aplicável, resumo e resultados de exame
-- Armazenado no Vetly (N:1) — consolidação do histórico clínico e financeiro
+- Recebido por Tutor (N:N) — receita, atestado quando aplicável, resumo e resultados de exame via WhatsApp
 
 ---
 
@@ -113,9 +111,10 @@ ENTIDADE: Pagamento
 Atributos: meio (Pix, cartão de crédito, cartão de débito), momento (antecipado no agendamento / no ato do atendimento / caução + saldo na saída), processador (Abacate Pay), percentual e prazo de liquidação do split
 Relacionamentos:
 - Realizado por Tutor (N:1) — tutor é o pagador em todos os cenários
-- Associado a Consulta, Internação ou serviço avulso (N:1) — cada pagamento vinculado a um evento
-- Processado via Abacate Pay (N:1) — gateway único de processamento
-- Split aplicado entre Veterinário autônomo e Plataforma, ou entre Empresa e Plataforma (N:1) — conforme regras configuradas no onboarding
+- Associado a Consulta (N:1) — pagamento de consultas, vacinações, cirurgias e exames
+- Associado a Internação (N:1) — caução de entrada e saldo final
+- Vinculado a Veterinário (N:1) — referência para cálculo do repasse quando persona autônoma
+- Vinculado a Empresa (N:1) — referência para cálculo do repasse quando persona empresa
 
 ---
 
