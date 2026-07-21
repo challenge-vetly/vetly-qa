@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git remote *)",
+      "Bash(mkdir -p \"/c/Users/tiago/AppData/Local/Temp/claude/f--Vetly-vetly-qa/68e29792-f0c4-4c02-8695-9c28c1967be8/scratchpad\")",
+      "Bash(node -e ' *)",
+      "Read(//c/Users/tiago/AppData/Local/Temp/claude/f--Vetly-vetly-qa/68e29792-f0c4-4c02-8695-9c28c1967be8/scratchpad/**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\tiago\\AppData\\Local\\Temp\\claude\\f--Vetly-vetly-qa\\68e29792-f0c4-4c02-8695-9c28c1967be8\\scratchpad"
+    ]
+  }
+}
