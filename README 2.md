@@ -6,7 +6,7 @@
 
 ## 1. Identidade do Produto
 
-**Vetly** é a plataforma intermediária entre Responsáveis de pets e veterinários — o "esquema Uber" aplicado à saúde animal. A Vetly não presta serviço veterinário: ela conecta, organiza, cobra, reparte e guarda o histórico.
+**Vetly** é a plataforma intermediária entre Responsáveis de pets e veterinários. A Vetly não presta serviço veterinário: ela conecta, organiza, cobra, reparte e guarda o histórico.
 
 **Tese central:** o produto fideliza o cliente **com o app, não com veterinários específicos**. O compromisso da Vetly é com o Responsável. O prontuário pertence ao **animal** ("mente colmeia"), não à clínica — logo qualquer vet da rede atende com contexto completo, e a diferenciação entre vets se desloca para **preço, qualidade, infraestrutura e equipamentos**. Esse nivelamento é um efeito estratégico desejado: estimula investimento e competição saudável, e transforma a Vetly no ativo insubstituível (os dados e a conveniência ficam na plataforma).
 
@@ -80,13 +80,13 @@ Métodos salvos, histórico, créditos Vetly (RN-065). No MVP os valores são re
 O pop-up dispara quando o vet marca a consulta como "realizada" (RN-076). Só a nota geral é obrigatória no MVP (RN-077); 1 avaliação por consulta realizada; a nota entra no ranking a partir de 3 avaliações (RN-078).
 
 ### 3.8 Fidelidade
-Cumprir obrigações no prazo gera pontos e sobe tier (Bronze/Prata/Ouro) — acúmulo e tier são reais (RN-070/071). O desconto em reais é calculado e exibido (quanto economizaria e como a incidência se divide Vetly×vet), sem abatimento real porque o pagamento é simulado (RN-072).
+Cumprir obrigações no prazo gera pontos e sobe tier (Bronze/Prata/Ouro) — acúmulo e tier são reais. O desconto em reais é calculado e exibido (quanto economizaria e como a incidência se divide Vetly×vet), sem abatimento real porque o pagamento é simulado.
 
 ### 3.9 Marketplace de Parceiros
 Vitrine (medicamentos, rações, comida, banho & tosa, serviços) com catálogo em memória no front. Itens aparecem com preço/desconto por tier, mas o botão de compra leva a "em breve" — sem Parceiro nem pedido real (RN-090).
 
 ### 3.10 Centro de Notificações
-Inbox in-app com todos os eventos (§6.2). Preferências por categoria; promoções exigem opt-in (RN-103).
+Inbox in-app com todos os eventos (§6.2). Preferências por categoria; promoções exigem opt-in.
 
 ---
 
@@ -94,7 +94,7 @@ Inbox in-app com todos os eventos (§6.2). Preferências por categoria; promoç�
 
 ### 4.1 Financeiro do Administrador
 **Vê (consolidado da unidade):** faturamento bruto por período/serviço/vet; comissões/split retidos e repasses com status; NFs, reembolsos, retenções; KPIs (ticket médio, ocupação, cancelamento/no-show, receita por especialidade).
-**É vedado:** dados bancários pessoais e movimentações de vets fora da unidade; remuneração interna dos vinculados (a Vetly mostra produção, nunca "salário" — RN-013); dados de outros estabelecimentos (RN-007).
+**É vedado:** dados bancários pessoais e movimentações de vets fora da unidade; remuneração interna dos vinculados (a Vetly mostra produção, nunca "salário" — RN-013); dados de outros estabelecimentos.
 
 ### 4.2 Matriz de Features por Plano
 | Feature | Básico | Profissional | Enterprise |
@@ -114,7 +114,7 @@ Inbox in-app com todos os eventos (§6.2). Preferências por categoria; promoç�
 | Integrações externas (4.3) e API | — | — | ✅ |
 | Slots patrocinados (compra opcional) | — | ✅ | ✅ |
 
-Responsáveis nunca pagam plano — a camada de usuário é gratuita. Comissão por plano: **15% / 12% / 10%** (RN-089). Assinatura: Básico R$ 0 · Profissional R$ 199/mês · Enterprise a partir de R$ 599/mês por faixa de nº de vets (§11).
+Responsáveis nunca pagam plano — a camada de usuário é gratuita. Comissão por plano: **15% / 12% / 10%** (RN-089). Assinatura: Básico R$ 0 · Profissional R$ 199/mês · Enterprise a partir de R$ 599/mês por faixa de nº de vets.
 
 ### 4.3 Integrações Enterprise (documentadas)
 1. Laboratórios (IDEXX, Zoetis/Vetscan); 2. NFS-e/contabilidade (Omie, Conta Azul); 3. Planos de saúde pet (Petlove, Porto.Pet, Health for Pet); 4. ERPs/PMS legados; 5. Farmácias de manipulação; 6. Calendários (Google/Outlook).
@@ -167,7 +167,7 @@ WhatsApp só lembretes e promoções; nunca documento, link de pagamento ou link
 | Cobrança de saldo de internação | ✅ ação | ✅ | ❌ |
 | Lembrete de obrigação do pet | ✅ | ✅ | lembrete |
 | Lembrete de medicação/recompra | ✅ | ✅ | lembrete |
-| Pop-up de avaliação | ✅ ação | ✅ | ❌ |
+| Pop-up de avaliação | ✅ ação | ✅ | ❌ |s
 | Cancelamento pelo vet | ✅ ação | ✅ | lembrete |
 | Promoções | ✅ | opcional | opt-in |
 | Pontos/tier de fidelidade | ✅ | opcional | — |
@@ -280,7 +280,7 @@ Fluxos completos ponta a ponta, em formato **passo → resultado**, com as RNs q
 2. Sistema notifica o Responsável por push com orientações → Responsável informado.
 3. [Resultado] inserido por upload do vet (ou integração de laboratório — alvo Enterprise) → vinculado ao histórico.
 4. Sistema alerta o vet solicitante; a IA incorpora o resultado ao contexto clínico → disponível para consultas futuras.
-5. Vet libera o acesso → Responsável recebe push e consulta o resultado no app (RN-036).
+5. Vet libera o acesso → Responsável recebe push e consulta o resultado no app.
 
 ### Fluxo 11 — Triagem de Pré-sintomas (IA voltada ao Responsável)
 1. Responsável relata sintomas no app (etapa distinta da IA da consulta) → triagem inicia.
