@@ -171,7 +171,7 @@ Ao acessar a plataforma, o veterinário visualiza o dashboard do dia: agenda do 
 
 A consulta **inicia quando o veterinário aperta "iniciar consulta"** e **termina quando ele mesmo clica que acabou**; a partir daí todos os processos planejados são executados.
 
-Durante o atendimento, a IA opera para **reduzir ao máximo a fricção do veterinário**. A IA **recebe as falas do médico durante a consulta** e captura os dados clínicos necessários para gerar diagnóstico, protocolo, prontuário, receita e demais documentos do paciente. Ao encerrar a consulta, uma automação **sobe os dados gerados para o app** e os adiciona ao histórico de vida do animal. A IA na consulta e os documentos gerados pela IA estão disponíveis nos planos Profissional e Enterprise (§4.2).
+Durante o atendimento, a IA opera para **reduzir ao máximo a fricção do veterinário**. A IA **recebe as falas do médico durante a consulta** e captura os dados clínicos necessários para gerar diagnóstico, prontuário, receita e encaminhamentos do paciente. Ao encerrar a consulta, o medico tem acesso aos documentos gerados pela IA, podendo fazer alteracoes, recusar ou aceitar o que foi gerado. Ao finalizar, uma automação **sobe os dados gerados para o app** e os adiciona ao histórico de vida do animal, e os documentos pertinentes sao enviados ao paciente. A IA na consulta e os documentos gerados pela IA estão disponíveis nos planos Profissional e Enterprise (§4.2).
 
 ### 5.4 Fluxo Financeiro
 
