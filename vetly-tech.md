@@ -1,6 +1,6 @@
 # Vetly — Regras de Negócio, Entidades e Relacionamentos
 
-> Documento técnico do Vetly. Fonte de verdade das **regras de negócio (RN-001 a RN-107)**, do **mapa de entidades e relacionamentos** e do **modelo de dados**. Os fluxos da plataforma e a visão de produto estão em **[README.md](./README.md)**, que referencia estas RNs.
+> Documento técnico do Vetly. Fonte de verdade das **regras de negócio (RN-001 a RN-107)**, do **mapa de entidades e relacionamentos** e do **modelo de dados**. Os fluxos da plataforma e a visão de produto estão em **[vetly-produto.md](./vetly-produto.md)**, que referencia estas RNs.
 >
 > **Convenções:** a persona dona do pet é **Responsável**. A operação do Responsável acontece **inteiramente no app** — não há canal WhatsApp em nenhuma etapa. Onde uma regra é **alvo de produção** e não entra no MVP, isso está sinalizado na própria regra, sem removê-la.
 >
@@ -84,7 +84,7 @@ Relacionamentos:
 - Origina **Pagamento** (1:N) — repasse da unidade; no MVP registrado, não liquidado
 
 ### ENTIDADE: Administrador
-Atributos: escopo de acesso **consolidado da unidade com vedações financeiras** (RN-106) — sem dados bancários pessoais de vets, sem remuneração interna dos vinculados, sem dados de outros estabelecimentos (README.md §7.3).
+Atributos: escopo de acesso **consolidado da unidade com vedações financeiras** (RN-106) — sem dados bancários pessoais de vets, sem remuneração interna dos vinculados, sem dados de outros estabelecimentos (vetly-produto.md §7.3).
 Relacionamentos:
 - Gerencia **Empresa** (1:1)
 - Gerencia **Veterinário** vinculado (1:N) — cadastra, edita, desativa (RN-022)
@@ -482,4 +482,4 @@ O documento não pode especificar a API de terceiros, mas define o **contrato qu
 
 ---
 
-*Documento técnico do Vetly. Companheiro de [README.md](./README.md) (produto e fluxos). Toda RN é rastreável; onde é alvo de produção e não MVP, está sinalizado sem apagar a regra.*
+*Documento técnico do Vetly. Companheiro de [vetly-produto.md](./vetly-produto.md) (produto e fluxos). Toda RN é rastreável; onde é alvo de produção e não MVP, está sinalizado sem apagar a regra.*

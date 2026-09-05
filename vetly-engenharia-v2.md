@@ -30,18 +30,20 @@ E a camada de implementação da §6 do tech: **C1** (banco + API reais), **C2**
 | Docs | Scalar em `/scalar/v1` | Contratos deste doc devem aparecer via `ProducesResponseType` + XML docs. |
 | IA | **Ollama local, `llama3.1`**, `IOllamaService` com `HttpClient` timeout 120s | O "serviço de IA" da v1 já existe e se chama `IOllamaService`. Não criar adaptador paralelo. |
 | Erros | `ExceptionHandlingMiddleware` → RFC 7807 ProblemDetails; `BusinessRuleException(codigo, mensagem)` | O envelope `{ erro: {...} }` da v1 **está cancelado** (§2.4). |
-| Testes | xUnit + Moq, 51 verdes | Cada refatoração abaixo lista os testes que quebram. |
+| Testes | xUnit + Moq, 939 verdes (699 unitários + 240 integração — recontado direto do código em 2026-09-05; ver nota de verificação em §0.2) | Cada refatoração abaixo lista os testes que quebram. |
 | Padrões | Factory (`IDocumentoFactory`), Strategy (`ICancelamentoStrategy`, `ISplitFinanceiroStrategy`), Repository, Soft delete, Value Object `Crmv` | Endpoints novos reaproveitam esses pontos de extensão em vez de criar outros. |
 
 ### 0.2 O que já está pronto e cobre o MVP
 
-Onboarding de vet/empresa/tutor/animal (CRUD + soft delete), agenda futura do vet, consulta (agendar, cancelar com Strategy de reembolso, finalizar, briefing), internação (abrir, procedimentos, alta com saldo), exames (solicitar, resultado, liberar), documentos (gerar por Factory, assinar, corrigir com versionamento), pagamento (registrar, split por Strategy), lembretes com régua de 3 tentativas, e quatro rotas de IA sobre Ollama.
+> ⚠️ **Nota de verificação (2026-09-05):** esta seção e a §0.3 originalmente descreviam um snapshot bem mais antigo da API (a versão anterior contava "51 verdes" de teste e estimava "~55% do MVP", com quase toda a lista abaixo marcada como inexistente). Uma reverificação direta no código de `vetly-.net` mostrou que isso está defasado — praticamente tudo listado como "falta por inteiro" já existe como endpoint hoje. O texto abaixo foi reescrito para refletir essa reverificação. **Escopo da verificação: existência de controller/endpoint via leitura do código-fonte, não auditoria RN-a-RN de completude de regra de negócio** — um endpoint listado aqui como existente pode ainda ter lacunas de regra que só uma auditoria RN-a-RN revelaria; isso não foi feito nesta passada.
 
-Isso é aproximadamente **55% do MVP**. O que falta é quase todo do lado do Responsável.
+Onboarding de vet/empresa/tutor/animal (CRUD + soft delete), agenda futura do vet, consulta (agendar, cancelar com Strategy de reembolso, finalizar, briefing, pré-sintomas, captura de áudio em segmentos, iniciar/encerrar, retorno, redistribuição), internação (abrir, procedimentos, alta com saldo), exames (solicitar, resultado, liberar), documentos (gerar por Factory, assinar, corrigir com versionamento), pagamento (registrar, split por Strategy, carteira do tutor), lembretes com régua de 3 tentativas, quatro rotas de IA sobre Ollama, **e adicionalmente (não presentes na versão anterior deste documento):** auth + onboarding do Responsável (`AuthController: registro/tutor, login, refresh, logout, trocar-senha`), board do pet (`GET /api/animais/{id}/board`), obrigações (`ObrigacoesController`), busca/matching por geolocalização (`BuscaController`), lista de espera (`ListaEsperaController`), fidelidade — saldo/extrato/resgate/cupons (`FidelidadeController`), avaliação — registrar/responder/moderar (`AvaliacoesController`), notificações in-app + preferências (`NotificacoesController`), colmeia — conceder/revogar/consultar acesso (`ColmeiaController`), mídia (`MidiaController`), dashboard do vet e consolidado financeiro (`DashboardController`, `FinanceiroController`).
 
-### 0.3 O que falta por inteiro
+### 0.3 O que falta / precisa de auditoria mais profunda
 
-App do Responsável (auth, board do pet, obrigações, carteira), matching por geolocalização, slots/lock/lista de espera, pré-sintomas, **captura de áudio → Node-RED → texto → IA estruturada**, fidelidade, avaliação, notificações in-app + push, colmeia (acesso por evento clínico + log), mídia/storage.
+Ao nível de **existência de endpoint**, nenhuma área grande ficou de fora nesta reverificação. O que genuinamente não foi confirmado:
+- **Push notification real** (APNs/FCM) — `NotificacoesController` cobre o lado in-app; não foi verificado se o envio push está implementado ou só a interface (`IPushService`) existe.
+- **Profundidade de regra por endpoint** — esta seção não substitui uma auditoria RN-a-RN; o catálogo endpoint-a-endpoint nas seções seguintes (§1 em diante) pode conter marcadores de status (✅/🔧/🆕/⚠️) que ainda refletem o snapshot antigo e não foram individualmente reconferidos nesta passada — tratar com a mesma ressalva acima até uma auditoria dedicada.
 
 ### 0.4 De-para de nomenclatura — leia antes de qualquer refatoração
 
@@ -54,7 +56,7 @@ App do Responsável (auth, board do pet, obrigações, carteira), matching por g
 
 ### 0.5 ⚠️ Conflito de numeração de RN
 
-O `README.md` do repositório usa uma numeração **própria** (`RN-008`, `RN-011`, `RN-015`, `RN-019/020/021`, `RN-024`, `RN-029/030`, `RN-031`, `RN-032/034`) que **colide com códigos diferentes** no `vetly-tech.md`. Exemplo: `RN-024` no código é "documento exige diagnóstico validado"; no tech é "vet desativado só obtém extrato". Isso quebra a rastreabilidade inteira.
+O `README-TECH.md` do repositório (documento legado, ver `legado/README-TECH.md`) usa uma numeração **própria** (`RN-008`, `RN-011`, `RN-015`, `RN-019/020/021`, `RN-024`, `RN-029/030`, `RN-031`, `RN-032/034`) que **colide com códigos diferentes** no `vetly-tech.md`. Exemplo: `RN-024` no código é "documento exige diagnóstico validado"; no tech é "vet desativado só obtém extrato". Isso quebra a rastreabilidade inteira.
 
 **De-para (a aplicar nos XML docs e nas `BusinessRuleException`):**
 
@@ -1052,4 +1054,4 @@ Ordenado por dependência: cada onda só depende das anteriores. As ondas 1 e 2 
 
 ---
 
-*Rastreabilidade: todo endpoint, tabela e job cita as RNs do `vetly-tech.md` (numeração oficial, não a do README do repositório — ver §0.5) e os fluxos seguem a §8 do `vetly-produto.md`. Nenhum parâmetro da §1 do tech foi alterado. Onde o código diverge de uma decisão fechada de produto, está registrado como conflito na §10, não resolvido em silêncio.*
+*Rastreabilidade: todo endpoint, tabela e job cita as RNs do `vetly-tech.md` (numeração oficial, não a do README-TECH.md legado — ver §0.5) e os fluxos seguem a §8 do `vetly-produto.md`. Nenhum parâmetro da §1 do tech foi alterado. Onde o código diverge de uma decisão fechada de produto, está registrado como conflito na §10, não resolvido em silêncio.*
